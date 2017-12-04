@@ -1,0 +1,141 @@
+###############################################################################
+#                                                                             #
+# Rig Client core configuration file. Format of each item is:                 #
+#     # <Description> A description of the configuration item.                #
+#     # <Name> <Type> Configuration key - Configuration value type            #
+#     # <Example> Provided example of correct configuration                   #
+#     Key <Value> Actual configuration                                        #
+#                                                                             #
+# NOTE: Key values and enumerated values ARE case sensitive.                  #
+#                                                                             #
+###############################################################################
+
+###############################################################################
+## Rig Identification                                                        ##
+###############################################################################
+
+# Uniquely identifies a rig within the remote laboratory.
+# Rig_Type <String>
+# Rig_Name test1
+Rig_Name BarTemperature1
+
+# Identifies the rig as an identical configuration of the same
+# software and hardware. This means any rig in this type can be used in
+# place of any other rig in the same type.
+# Rig_Type <String>
+# Rig_Type Rig_Type
+Rig_Type BarTemperatureRig
+
+# A list of identifying tags which may be used to correlate rigs into collections
+# to queue or book for. This allows, for example, multiple rig types to be
+# collectively queued to get the first free rig in any of the rig types.
+# Rig_Capabilites <String,...,String>
+# Rig_Capabilites tag1,tag2,tag3
+Rig_Capabilities Counter
+
+# The fully qualified class name of the rig clients rig type class. This must
+# implement the interface 'au.edu.uts.eng.remotelabs.rigclient.rig.IRig' but in
+# practice most likely extends the abstract class
+# 'au.edu.uts.eng.remotelabs.rigclient.rig.AbstractRig'. Two generic
+# implementations exist that provide the required rig type class functionality.
+# These are:
+#
+#     * au.edu.uts.eng.remotelabs.rigclient.rig.ConfiguredRig - Class
+#        which is configured with the name of 'action' classes (classes
+#        implementing interfaces that are run at certain session events);
+#
+#     * au.edu.uts.eng.remotelabs.rigclient.rig.ConfiguredControlledRig -
+#       Similar class to the former but also implements the option rig client
+#       control interface;
+#
+# Consult the 'Sahara Development Handbook' for further detail about rig type
+# classes and how to create them.
+# Rig_Class [au.edu.uts.eng.remotelabs.rigclient.rig.ConfiguredRig] | \
+#           [au.edu.uts.eng.remotelabs.rigclient.rig.ConfiguredControlledRig] | \
+#           <Class name>
+# Rig_Class au.edu.uts.eng.remotelabs.rigclient.rig.ConfiguredControlledRig
+Rig_Class au.edu.uts.eng.remotelabs.rigclient.rig.ConfiguredControlledRig
+
+# The IP address of the machine the Rig Client is running on. This is needed
+# if the Rig Client machine has multiple network interfaces and you want to
+# ensure the external IP address is transmitted as the communication address.
+# If left empty, the address of the first iterated network device is used.
+# Rig_Client_IP_Address <IP>|<hostname>|empty
+# Rig_Client_IP_Address
+Rig_Client_IP_Address localhost
+
+# The name of the network interface of the Rig Client is listening on. This is
+# needed if the Rig Client machine has multiple network interfaces and you want
+# a specific network interface to be used. This may be used in preference to
+# the 'Rig_Client_IP_Address' property as it allows a specific network interface
+# to be used while still detecting the IP address at runtime
+# (i.e. Supports DHCP).
+# Listening_Network_Interface <String>|empty
+# Listening_Network_Interface
+#Listening_Network_Interface
+Listening_Network_Interface 
+
+# The port number the Rig Client server is to listen on. This must be externally
+# accessible by the Scheduling Server.
+# Listening_Port <int>
+# Listening_Port 8080
+Listening_Port 8098
+
+###############################################################################
+## Scheduling Server Communication                                           ##
+###############################################################################
+
+# The address of the Scheduling Server. This can be the host name or the IP
+# address of the computer the Scheduling Server is running on.
+# Scheduling_Server_Address <String>
+# Scheduling_Server_Address localhost
+Scheduling_Server_Address localhost
+
+# The port number the Scheduling Server is listening on.
+# Scheduling_Server_Port <int>
+# Scheduling_Server_Port 80
+Scheduling_Server_Port 8080
+
+# The time in seconds between sending status updates from the Rig Client
+# to Scheduling Server.
+# Scheduling_Server_Update_Period <int> seconds
+# Scheduling_Server_Update_Period 30
+Scheduling_Server_Update_Period 30
+
+
+###############################################################################
+## Miscellaneous Properties                                                  ##
+###############################################################################
+
+# The number of concurrent requests the Rig Client can service. If there are
+# more than this number of requests, the extra requests are queued.
+# Concurrent_Requests <int>
+# Concurrent_Requests 50
+Concurrent_Requests 10
+
+###############################################################################
+## Administrative Interface                                                  ##
+###############################################################################
+
+# The username to login to the administrative web interface. If this is not
+# configured the default username is 'admin'.
+# Admin_Username <String>
+# Admin_Username admin
+Admin_Username admin
+
+# The password to login to the administrative web interface. If this is not
+# configured the default password is 'passwd'.
+# Admin_Password <String>
+# Admin_Password passwd
+Admin_Password passwd
+
+Ignore_Async_Release_Request false
+Force_Async_Allocation false
+Test_Light_Time 
+Action_Failure_Threshold 
+Ignore_Async_Allocation_Request false
+Test_Dark_Time 
+Force_Async_Release false
+PRIORITY_Log_Format 
+DEBUG_Log_Format 
+WARN_Log_Format 

@@ -1,0 +1,1 @@
+start javaw -cp rigclient.jar;lib\PendulumRig.jar au.edu.uts.eng.remotelabs.rigclient.main.RigClientMain
