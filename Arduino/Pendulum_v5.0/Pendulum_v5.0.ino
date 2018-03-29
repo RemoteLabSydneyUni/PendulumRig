@@ -200,7 +200,7 @@ void setValue(int addr, long val){
     case 21:
       if ((mode == 2 && state == 0) || (mode == 2 && state == 5)){
         tgtLength = (int)val;
-        tgtStep = max(min(curStep - (long)(curLength - tgtLength) *200L, 160000L),0L);
+        tgtStep = max(min((long)(tgtLength - curLength) *200L +curStep, 160000L),0L);
         mode = 2;
         state = 5;
       }
@@ -222,13 +222,13 @@ void setValue(int addr, long val){
 void setCommand(int commandIndex){
   switch (commandIndex){
     case 11:
-      if (mode == 1){
+//      if (mode == 1){
         mode = 2;
         state = 0;
         modeStart = millis();
         periodCounter = 0L;
         lastCounter = 0L;
-      }
+//      }                           // change stop button to ESD button: can be used in any case
       Serial.println("Cpl");
       break;
     
